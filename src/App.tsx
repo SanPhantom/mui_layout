@@ -3,7 +3,6 @@ import './App.css';
 import { Layout } from './components/index'
 import { createTheme, ThemeProvider } from '@material-ui/core/styles';
 import { orange } from '@material-ui/core/colors';
-import { useMediaQuery } from '@material-ui/core';
 import { Outlet } from 'react-router';
 
 declare module '@material-ui/core/styles/createTheme' {
@@ -26,8 +25,8 @@ export interface AppProps {
 
 const App: React.SFC<AppProps> = (props) => {
 
-  const prefersDarkMode = useMediaQuery('(prefers-color-scheme: dark)');
-  const [skin, setSkin] = React.useState(true);
+  // const prefersDarkMode = useMediaQuery('(prefers-color-scheme: dark)');
+  const [skin, setSkin] = React.useState(false);
 
   const theme = React.useMemo(() => 
     createTheme({
@@ -37,7 +36,7 @@ const App: React.SFC<AppProps> = (props) => {
       status: {
         danger: orange[500],
       }
-    }), [prefersDarkMode, skin]) 
+    }), [skin]) 
 
   const updateTheme = (v: boolean) => {
     setSkin(v);

@@ -19,7 +19,7 @@ const LeftNav: React.SFC<LeftNavProps> = props => {
       let opens = open;
       for (const key in opens) {
         if (Object.prototype.hasOwnProperty.call(opens, key)) {
-          if (key == menu.name) {
+          if (key === menu.name) {
             opens[key] = !opens[key];
           } else {
             opens[key] = false;

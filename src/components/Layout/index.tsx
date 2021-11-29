@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { AppBar, Toolbar, IconButton, Typography, Tooltip, Container, Box, CssBaseline, Drawer, styled, Theme, createStyles } from '@material-ui/core'
+import { AppBar, Toolbar, IconButton, Typography, Tooltip, Box, CssBaseline, Drawer, styled, createStyles } from '@material-ui/core'
 import MenuIcon from '@material-ui/icons/Menu';
 import MenuOpen from '@material-ui/icons/MenuOpen';
 import MaterialUISwitch from '../SanSwitch';
@@ -99,7 +99,7 @@ const Layout: React.SFC<LayoutProps> = props => {
         // onClose={() => setOpen(false)}
         sx={{
           width: drawerWidth,
-          display: { xs: 'none', sm: 'block' },
+          display: { sm: 'none', lg: 'block' },
           // position: { xs: 'static', sm: 'fixed' },
           // position: 'fixed',
           flexShrink: 0,
@@ -117,7 +117,7 @@ const Layout: React.SFC<LayoutProps> = props => {
         onClose={() => setOpen(false)}
         sx={{
           width: drawerWidth,
-          display: { xs: 'block', sm: 'none' },
+          display: { sm: 'block', lg: 'none' },
           // position: 'fixed',
           flexShrink: 0,
           [`& .MuiDrawer-paper`]: { width: drawerWidth, boxSizing: 'border-box' },
@@ -127,7 +127,7 @@ const Layout: React.SFC<LayoutProps> = props => {
           <LeftNav />
         </Box>
       </Drawer>
-      <Main open={open} sx={!open ? {marginLeft: {xs: 0, sm: `-${drawerWidth}px`}} : {}}>
+      <Main open={open} sx={!open ? {marginLeft: {sm: 0, lg: `-${drawerWidth}px`}} : {}}>
         <Toolbar />
         <Box sx={{ overflow: 'auto' }}>
           {props.children}
