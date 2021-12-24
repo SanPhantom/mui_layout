@@ -2,7 +2,6 @@ import { Button, Typography } from '@material-ui/core';
 import * as React from 'react';
 import { ITableColumnsProps } from '../../../components/interface/intex';
 import OneTable from '../../../components/OneTable';
-import OneTimeRange from '../../../components/OneTimeRange';
 
 interface ITableProps {
 }
@@ -75,6 +74,10 @@ const Table: React.FunctionComponent<ITableProps> = ({ }) => {
     console.log('selectedRows: ', selectedRows);
   }
 
+  const handleClick = () => {
+    // Message.success('123');
+  }
+
   return (
     <>
       <OneTable 
@@ -87,7 +90,7 @@ const Table: React.FunctionComponent<ITableProps> = ({ }) => {
         showPagination
         changeRows={changeRows}></OneTable>
       
-      {/* <OneTimeRange value={[256, 385]}></OneTimeRange> */}
+      <Button variant="contained" onClick={()=>handleClick()}>open message</Button>
     </>
   );
 };

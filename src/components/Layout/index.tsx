@@ -129,7 +129,7 @@ const Layout: React.SFC<LayoutProps> = props => {
       </Drawer>
       <Main open={open} sx={!open ? {marginLeft: {sm: 0, lg: `-${drawerWidth}px`}} : {}}>
         <Toolbar />
-        <Box sx={{ overflow: 'auto' }}>
+        <Box>
           {props.children}
         </Box>
 
