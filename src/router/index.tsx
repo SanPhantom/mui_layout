@@ -4,7 +4,7 @@ import {
   Navigate,
   useRoutes
 } from 'react-router-dom'
-import { About, Home, Login } from '../pages'
+import { About, Data, Home, Login } from '../pages'
 import App from '../App';
 import utils from '../config/utils'
 
@@ -32,6 +32,14 @@ const SanRouter: React.SFC<SanRouterProp> = props => {
           path: 'about',
           element: <About />,
         },
+        {
+          path: 'table',
+          element: <Data.Table />
+        },
+        {
+          path: 'calendar',
+          element: <Data.Calendar />
+        }
       ]
     },
     {

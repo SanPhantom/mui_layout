@@ -4,6 +4,8 @@ import { Layout } from './components/index'
 import { createTheme, ThemeProvider } from '@material-ui/core/styles';
 import { orange } from '@material-ui/core/colors';
 import { Outlet } from 'react-router';
+import { LocalizationProvider } from '@material-ui/lab';
+import AdapterDateFns from '@material-ui/lab/AdapterDateFns';
 
 declare module '@material-ui/core/styles/createTheme' {
   interface Theme {
@@ -20,7 +22,7 @@ declare module '@material-ui/core/styles/createTheme' {
 
 export interface AppProps {
   // props
- 
+
 }
 
 const App: React.SFC<AppProps> = (props) => {
@@ -28,15 +30,18 @@ const App: React.SFC<AppProps> = (props) => {
   // const prefersDarkMode = useMediaQuery('(prefers-color-scheme: dark)');
   const [skin, setSkin] = React.useState(false);
 
-  const theme = React.useMemo(() => 
+  const theme = React.useMemo(() =>
     createTheme({
       palette: {
-        mode: !skin ? 'light' : 'dark'
+        mode: !skin ? 'light' : 'dark',
+        primary: {
+          main: '#503a65'
+        }
       },
       status: {
         danger: orange[500],
       }
-    }), [skin]) 
+    }), [skin])
 
   const updateTheme = (v: boolean) => {
     setSkin(v);
@@ -47,10 +52,11 @@ const App: React.SFC<AppProps> = (props) => {
   return (
     <div className="App">
       <ThemeProvider theme={theme}>
-        <Layout updateTheme={updateTheme} skin={skin}>
-          <span>123</span>
-          <Outlet />
-        </Layout>
+        {/* <LocalizationProvider dateAdapter={undefined}> */}
+          <Layout updateTheme={updateTheme} skin={skin}>
+            <Outlet />
+          </Layout>
+        {/* </LocalizationProvider> */}
       </ThemeProvider>
     </div>
   );

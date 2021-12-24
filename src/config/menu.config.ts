@@ -19,12 +19,16 @@ const menu: Array<MenuProp> = [
     path: '/about'
   },
   {
-    name: 'SecondPage',
+    name: 'Data',
     path: '/',
     children: [
       {
-        name: 'Second Page - No.1',
-        path: '/'
+        name: 'Table',
+        path: '/Table'
+      },
+      {
+        name: 'Calendar',
+        path: '/calendar'
       },
       {
         name: 'Second Page - No.2',
