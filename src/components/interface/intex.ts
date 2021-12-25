@@ -5,6 +5,7 @@ interface ITableColumnsProps<T> {
   align?: 'left' | 'right' | 'center',
   props: keyof T,
   width?: string | number,
+  ellipsis?: boolean,
   render?: (row: T, index: number) => React.ReactNode,
 }
 
@@ -17,7 +18,7 @@ interface ITablePaginationProp {
     newPage: number
   ) => void,
   onRowsPerPageChange: (
-    event: React.MouseEvent<HTMLButtonElement> | null
+    event: React.ChangeEvent<HTMLTextAreaElement | HTMLInputElement>
   ) => void,
 }
 
@@ -29,6 +30,8 @@ interface IOneTableProps<T> {
   pageInfo?: ITablePaginationProp,
   checkedBox?: boolean,
   keyId: keyof T,
+  size?: 'small' | 'medium',
+  changeRows?: (selectedRows: Array<T>, selectedKeys: Array<T[keyof T]>) => void;
 }
 
 interface IOneTableRowProps {

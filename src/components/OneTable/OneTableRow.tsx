@@ -1,4 +1,4 @@
-import { styled, TableRow } from '@mui/material';
+import { styled, TableRow } from '@material-ui/core';
 import * as React from 'react';
 import { IOneTableRowProps } from '../interface/intex';
 

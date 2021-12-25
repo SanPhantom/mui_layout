@@ -1,4 +1,4 @@
-import { Collapse, List, ListItem, ListItemText } from '@material-ui/core';
+import { Box, Collapse, List, ListItem, ListItemText } from '@material-ui/core';
 import { ExpandLess, ExpandMore } from '@material-ui/icons';
 import * as React from 'react';
 import menus, { MenuProp } from '../../config/menu.config'
@@ -52,8 +52,8 @@ const LeftNav: React.SFC<LeftNavProps> = props => {
       component="nav"
       aria-labelledby="nested-list-subheader">
       {menus.map((menu, index) => (
-        <>
-          <ListItem key={'' + index} onClick={() => handleExpandMenu(menu)}>
+        <Box key={'nav_' + index}>
+          <ListItem onClick={() => handleExpandMenu(menu)}>
             <ListItemText>{menu.name}</ListItemText>
             {menu.children && menu.children.length ? open[menu.name] ? <ExpandLess /> : <ExpandMore /> : null}
           </ListItem>
@@ -73,7 +73,7 @@ const LeftNav: React.SFC<LeftNavProps> = props => {
               </Collapse>
             : <></>
           }
-        </>
+        </Box>
       ))}
     </List>
   );

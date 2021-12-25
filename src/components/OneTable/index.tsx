@@ -1,9 +1,8 @@
-import { Checkbox, Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Typography } from '@mui/material';
 import * as React from 'react';
 import { IOneTableProps } from '../interface/intex';
 import OneTableRow from './OneTableRow';
-import { cloneDeep, remove } from 'lodash-es'
-
+import { cloneDeep, remove } from "lodash-es";
+import { TableContainer, Table, TableHead, TableRow, TableCell, Checkbox, Typography, TableBody, Divider, TablePagination } from '@material-ui/core';
 const OneTable = <T extends {[x: string]: any}>({
   tableData,
   columns,
@@ -18,14 +17,17 @@ const OneTable = <T extends {[x: string]: any}>({
       newPage: number
     ) => { },
     onRowsPerPageChange: (
-      event: React.MouseEvent<HTMLButtonElement> | null
+      event: React.ChangeEvent<HTMLTextAreaElement | HTMLInputElement>
     ) => { },
   },
   checkedBox = false,
   keyId,
+  size = 'medium',
+  changeRows = () => {}
 }: IOneTableProps<T>) => {
-
-  const [selectedKeys, setSelectedKeys] = React.useState<Array<typeof tableData[0][typeof keyId]>>([])
+  // const [selectedKeys, setSelectedKeys] = React.useState<Array<>>([])
+  const [selectedKeys, setSelectedKeys] = React.useState<Array<T[keyof T]>>([])
+  const [selectedRows, setSelectedRows] = React.useState<Array<T>>([])
 
   const judgeAllCheck = () => {
     let col = cloneDeep(tableData);
@@ -37,22 +39,29 @@ const OneTable = <T extends {[x: string]: any}>({
     return col.map(x => x[keyId]).filter(x => !new Set(selectedKeys).has(x)).length > 0
   }
 
-  const handleCheck = (checked: boolean, data: typeof tableData[0], key: typeof tableData[0][typeof keyId]) => {
-    console.log(data);
+  const handleCheck = (checked: boolean, data: T, key: T[keyof T]) => {
     let clone_selectedKeys = cloneDeep(selectedKeys);
+    let clone_selectedRows = cloneDeep(selectedRows);
     checked ? 
-      setSelectedKeys([...clone_selectedKeys, key]) : setSelectedKeys(remove(clone_selectedKeys, n=>n!==key))
+      setSelectedKeys([...clone_selectedKeys, key]) : setSelectedKeys(remove(clone_selectedKeys, n=>n!==key));
+    checked ?
+      setSelectedRows([...clone_selectedRows, data]) : setSelectedRows(remove(clone_selectedRows, n=>n[keyId] !== data[keyId]))
   }
+
+  React.useEffect(() => {
+    
+    changeRows(selectedRows, selectedKeys);
+  }, [selectedKeys, selectedRows])
 
   return (
     <TableContainer>
-      <Table>
+      <Table sx={{ tableLayout: 'fixed' }} size={size}>
         <TableHead>
           <TableRow>
             {checkedBox && (
-              <TableCell width={45} align={"center"}>
+              <TableCell width={72} align={"center"}>
                 <Checkbox
-                  checked={judgeAllCheck()}
+                  checked={judgeAllCheck() && tableData.length > 0}
                   indeterminate={judgeFalseCheck() && selectedKeys.length !== 0} />
               </TableCell>
             )}
@@ -61,7 +70,7 @@ const OneTable = <T extends {[x: string]: any}>({
                 <TableCell key={`one_thc_${index}`}
                   width={column.width}
                   align={column.align ?? 'left'}>
-                  <Typography fontWeight="700">{column.label}</Typography>
+                  <Typography variant={"body2"} fontWeight="700" noWrap={column.ellipsis} sx={{ wordBreak: column.ellipsis ? 'normal' :'break-all' }}>{column.label}</Typography>
                 </TableCell>
               ))
             }
@@ -69,7 +78,7 @@ const OneTable = <T extends {[x: string]: any}>({
         </TableHead>
         <TableBody>
           {
-            Array.isArray(tableData) &&
+            (Array.isArray(tableData)) &&
             tableData.map((data, index) => (
               <OneTableRow key={`one_tbr_${index}`} doubleColor={doubleColor}>
                 {checkedBox && (
@@ -79,10 +88,10 @@ const OneTable = <T extends {[x: string]: any}>({
                 )}
                 {
                   columns.map((row, i) => (
-                    <TableCell align={row.align ?? 'left'}>
+                    <TableCell key={`one_tbc_${index}_${i}`} align={row.align ?? 'left'}>
                       {
                         row.render ? row.render(data, index) : (
-                          <Typography noWrap sx={{ width: '100%' }}>{data[row.props]}</Typography>
+                          <Typography variant={"body2"} noWrap={row.ellipsis} sx={{ width: '100%', wordBreak: row.ellipsis ? 'normal' :'break-all' }}>{data[row.props]}</Typography>
                         )
                       }
                     </TableCell>
@@ -93,6 +102,26 @@ const OneTable = <T extends {[x: string]: any}>({
           }
         </TableBody>
       </Table>
+      {showPagination && (
+        <TablePagination
+          component="div"
+          sx={{
+            mt: 2,
+            '& p': {
+              m: 0,
+            },
+            '& .MuiButtonBase-root': {
+              mr: 2,
+              ml: 2,
+            },
+          }}
+          count={pageInfo.total}
+          page={pageInfo.current - 1}
+          rowsPerPage={pageInfo.pageSize}
+          onPageChange={pageInfo.onPageChange}
+          onRowsPerPageChange={pageInfo.onRowsPerPageChange}
+        />
+      )}
     </TableContainer>
   );
 };
