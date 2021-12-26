@@ -1,7 +1,10 @@
-import { Button, Typography } from '@material-ui/core';
+import { Alert, Button, Typography } from '@mui/material';
+import { Stack } from '@mui/material';
 import * as React from 'react';
 import { ITableColumnsProps } from '../../../components/interface/intex';
+import { message } from '../../../components/Message';
 import OneTable from '../../../components/OneTable';
+import OneTimeRange from '../../../components/OneTimeRange';
 
 interface ITableProps {
 }
@@ -76,21 +79,35 @@ const Table: React.FunctionComponent<ITableProps> = ({ }) => {
 
   const handleClick = () => {
     // Message.success('123');
+    message.success('asss', 10);
+    // message.success('jasd')
   }
 
   return (
     <>
-      <OneTable 
-        tableData={tableList} 
-        columns={tableColumns} 
+      <OneTable
+        tableData={tableList}
+        columns={tableColumns}
         keyId={'id'}
         size={"small"}
-        checkedBox 
-        doubleColor 
+        checkedBox
+        doubleColor
         showPagination
         changeRows={changeRows}></OneTable>
-      
-      <Button variant="contained" onClick={()=>handleClick()}>open message</Button>
+      <Stack direction={"row"} spacing={3} alignItems={"center"}>
+        <Button variant="contained" color='success' onClick={() => { message.success('This is success msg!') }}>success</Button>
+        <Button variant="contained" color='info' onClick={() => { message.info('This is info msg!') }}>info</Button>
+        <Button variant="contained" color='warning' onClick={() => { message.warn('This is warn msg!') }}>warn</Button>
+        <Button variant="contained" color='error' onClick={() => { message.error('This is error msg!') }}>error</Button>
+        <Button variant="contained" color='warning' onClick={() => { message.warning('This is warning msg!') }}>warning</Button>
+      </Stack>
+      <Stack alignItems={"flex-start"}>
+        <Alert variant="filled" sx={{ mt: 2 }}>This is a success tip</Alert>
+      </Stack>
+      <Stack>
+        <OneTimeRange value={[100, 600]}></OneTimeRange>
+      </Stack>
+
     </>
   );
 };

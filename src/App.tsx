@@ -4,8 +4,9 @@ import { Layout } from './components/index'
 import { createTheme, ThemeProvider } from '@material-ui/core/styles';
 import { orange } from '@material-ui/core/colors';
 import { Outlet } from 'react-router';
-import { LocalizationProvider } from '@material-ui/lab';
-import AdapterDateFns from '@material-ui/lab/AdapterDateFns';
+import { LocalizationProvider } from '@mui/lab';
+import AdapterDateFns from "@mui/lab/AdapterDateFns"
+
 
 declare module '@material-ui/core/styles/createTheme' {
   interface Theme {
@@ -52,11 +53,11 @@ const App: React.SFC<AppProps> = (props) => {
   return (
     <div className="App">
       <ThemeProvider theme={theme}>
-        {/* <LocalizationProvider dateAdapter={undefined}> */}
+        <LocalizationProvider dateAdapter={AdapterDateFns}>
           <Layout updateTheme={updateTheme} skin={skin}>
             <Outlet />
           </Layout>
-        {/* </LocalizationProvider> */}
+        </LocalizationProvider>
       </ThemeProvider>
     </div>
   );
