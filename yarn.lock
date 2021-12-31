@@ -1594,7 +1594,7 @@
 
 "@mui/lab@^5.0.0-alpha.61":
   version "5.0.0-alpha.61"
-  resolved "https://repo.huaweicloud.com/repository/npm/@mui/lab/-/lab-5.0.0-alpha.61.tgz#3f604ac500ac3c28795fd5486d1baa56a97aeace"
+  resolved "https://registry.yarnpkg.com/@mui/lab/-/lab-5.0.0-alpha.61.tgz#3f604ac500ac3c28795fd5486d1baa56a97aeace"
   integrity sha512-bLWTj8CR/C+HKOtrJVbAa0AYXGAdjZzQlwOQgvdw1YWNo3HQi+ers9BirDoqzP+j+t+0zh/YM2ZchFsc8KTGTA==
   dependencies:
     "@babel/runtime" "^7.16.3"

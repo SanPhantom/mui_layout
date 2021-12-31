@@ -4,6 +4,7 @@ import moment, { MomentInput } from 'moment'
 import { styled } from '@material-ui/system';
 import { chunk } from 'lodash-es';
 import OneCalendar from '../../../components/OneCalendar';
+import CanvasRender from '../../../components/CanvasRender';
 
 interface ICalandarProps {
 }
@@ -41,7 +42,7 @@ const Calandar: React.FunctionComponent<ICalandarProps> = ({ }) => {
             p: 1
           }}>
           <Stack direction={"row"} spacing={1} alignItems={"center"}>
-            <Badge color="primary" variant="dot" sx={{pl: 1}}></Badge>
+            <Badge color="primary" variant="dot" sx={{ pl: 1 }}></Badge>
             <Typography>{v.date()}</Typography>
           </Stack>
 
@@ -52,35 +53,42 @@ const Calandar: React.FunctionComponent<ICalandarProps> = ({ }) => {
   }
 
   return (
-    <Paper sx={{p: 2, boxShadow: theme=>theme.shadows[5]}}>
-      <Stack direction="row" spacing={3} mt={2} alignItems="center">
-        <TextField
-          type="number"
-          id=""
-          label="year"
-          value={year}
-          onChange={(e) => { setYear(Number(e.target.value)) }}
+    <Stack spacing={3}>
+      <Paper sx={{ p: 2, boxShadow: theme => theme.shadows[5] }}>
+        <Stack direction="row" spacing={3} mt={2} alignItems="center">
+          <TextField
+            type="number"
+            id=""
+            label="year"
+            value={year}
+            onChange={(e) => { setYear(Number(e.target.value)) }}
 
-        />
-        <TextField
-          type="number"
-          id=""
-          label="Month"
-          value={month}
-          onChange={(e) => { setMonth(Number(e.target.value)) }}
-        />
-        <Button variant="contained" color="primary" onClick={() => { search() }}>
-          Search
-        </Button>
-      </Stack>
-      <Box>
-        <OneCalendar date={curDate} type={'dd'}
-          renderCell={(v) => {
-            return renderCalendarCell(v);
-          }} />
-      </Box>
+          />
+          <TextField
+            type="number"
+            id=""
+            label="Month"
+            value={month}
+            onChange={(e) => { setMonth(Number(e.target.value)) }}
+          />
+          <Button variant="contained" color="primary" onClick={() => { search() }}>
+            Search
+          </Button>
+        </Stack>
+        <Box>
+          <OneCalendar date={curDate} type={'dd'}
+            renderCell={(v) => {
+              return renderCalendarCell(v);
+            }} />
+        </Box>
 
-    </Paper>
+      </Paper>
+
+      <Paper sx={{ p: 2, boxShadow: theme => theme.shadows[5] }}>
+        <CanvasRender></CanvasRender>
+      </Paper>
+    </Stack>
+
   );
 };
 

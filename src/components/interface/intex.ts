@@ -6,6 +6,7 @@ interface ITableColumnsProps<T> {
   props: keyof T,
   width?: string | number,
   ellipsis?: boolean,
+  fixed?: 'left' | 'right',
   render?: (row: T, index: number) => React.ReactNode,
 }
 
@@ -31,7 +32,9 @@ interface IOneTableProps<T> {
   checkedBox?: boolean,
   keyId: keyof T,
   size?: 'small' | 'medium',
-  changeRows?: (selectedRows: Array<T>, selectedKeys: Array<T[keyof T]>) => void;
+  headFixed?: boolean,
+  tableHeight?: number | string,
+  changeRows?: (selectedRows: Array<T>, selectedKeys: Array<T[keyof T]>) => void,
 }
 
 interface IOneTableRowProps {

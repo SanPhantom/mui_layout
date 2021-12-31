@@ -1,9 +1,8 @@
-import { Alert } from "@mui/material";
 import ReactDOM from "react-dom";
 import MessageWrapper, { MessageProp } from "./MessageWrapper";
 import { uniqueId } from 'lodash-es';
 import './styles.css';
-import React, { useCallback } from "react";
+import React from "react";
 
 export const message = (function() {
 

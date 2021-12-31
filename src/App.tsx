@@ -36,13 +36,15 @@ const App: React.SFC<AppProps> = (props) => {
       palette: {
         mode: !skin ? 'light' : 'dark',
         primary: {
-          main: '#503a65'
+          main: !skin ? '#503a65' : '#825ea2'
         }
       },
       status: {
         danger: orange[500],
       }
     }), [skin])
+
+  
 
   const updateTheme = (v: boolean) => {
     setSkin(v);

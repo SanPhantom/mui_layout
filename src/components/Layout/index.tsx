@@ -16,6 +16,7 @@ const Main = styled('div', { shouldForwardProp: (prop) => prop !== 'open' && pro
     easing: theme.transitions.easing.sharp,
     duration: theme.transitions.duration.leavingScreen,
   }),
+  width: '100%',
   // marginLeft: {xs: 0, sm: `-${drawerWidth}px`},
   // marginLeft: `-${drawerWidth}px`,
   
@@ -46,7 +47,6 @@ const Layout: React.SFC<LayoutProps> = props => {
   const [open, setOpen] = React.useState(false);
 
   const handleChangeSkip = (v: React.ChangeEvent<HTMLInputElement>) => {
-    console.log(v.target.checked);
     setSkip(v.target.checked);
     updateTheme(v.target.checked)
   }
