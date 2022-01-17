@@ -70,6 +70,7 @@ const OneTable = <T extends { [x: string]: any }>({
 
   React.useEffect(() => {
     console.log(map(columns, 'fixed').filter(x => includes(['left', 'right'], x)));
+    console.log(columns.filter(x => x.fixed))
   }, [columns])
 
   return (
@@ -81,7 +82,7 @@ const OneTable = <T extends { [x: string]: any }>({
         width: '100%'
       }}>
         <Table sx={{
-          tableLayout: 'fixed'
+          // tableLayout: 'fixed'
         }} size={size}>
           <TableHead>
             <TableRow sx={{
@@ -95,6 +96,7 @@ const OneTable = <T extends { [x: string]: any }>({
                   align={"center"}
                   sx={{
                     position: 'sticky',
+                    zIndex: 2,
                     left: 0,
                     backgroundColor: theme => theme.palette.background.default
                   }}
@@ -109,8 +111,18 @@ const OneTable = <T extends { [x: string]: any }>({
                 columns.map((column, index) => (
                   <TableCell key={`one_thc_${index}`}
                     width={column.width}
-                    align={column.align ?? 'left'}>
-                    <Typography variant={"body2"} fontWeight="700" noWrap={column.ellipsis} sx={{ wordBreak: column.ellipsis ? 'normal' : 'break-all' }}>{column.label}</Typography>
+                    align={column.align ?? 'left'}
+                    sx={{
+                      ...(column.fixed && {
+                        position: 'sticky' 
+                      })
+                    }}>
+                    <Typography variant={"body2"}
+                      fontWeight="700"
+                      noWrap={column.ellipsis}
+                      sx={{
+                        wordBreak: column.ellipsis ? 'normal' : 'break-all'
+                      }}>{column.label}</Typography>
                   </TableCell>
                 ))
               }
@@ -122,7 +134,12 @@ const OneTable = <T extends { [x: string]: any }>({
               tableData.map((data, index) => (
                 <OneTableRow key={`one_tbr_${index}`} doubleColor={doubleColor}>
                   {checkedBox && (
-                    <TableCell align={"center"} sx={{ position: 'sticky', left: 0, background: theme => controlBack(theme, index) }}>
+                    <TableCell align={"center"}
+                      sx={{
+                        position: 'sticky',
+                        left: 0,
+                        background: theme => controlBack(theme, index)
+                      }}>
                       <Checkbox checked={new Set(selectedKeys).has(data[keyId])} onChange={(e) => handleCheck(e.target.checked, data, data[keyId])} />
                     </TableCell>
                   )}
@@ -131,7 +148,12 @@ const OneTable = <T extends { [x: string]: any }>({
                       <TableCell key={`one_tbc_${index}_${i}`} align={row.align ?? 'left'}>
                         {
                           row.render ? row.render(data, index) : (
-                            <Typography variant={"body2"} noWrap={row.ellipsis} sx={{ width: '100%', wordBreak: row.ellipsis ? 'normal' : 'break-all' }}>{data[row.props]}</Typography>
+                            <Typography variant={"body2"}
+                              noWrap={row.ellipsis}
+                              sx={{
+                                width: '100%',
+                                wordBreak: row.ellipsis ? 'normal' : 'break-all'
+                              }}>{data[row.props]}</Typography>
                           )
                         }
                       </TableCell>

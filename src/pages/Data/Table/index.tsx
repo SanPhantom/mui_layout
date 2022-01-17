@@ -26,6 +26,7 @@ const Table: React.FunctionComponent<ITableProps> = ({ }) => {
       props: 'id',
       ellipsis: true,
       width: 80,
+      fixed: 'left'
     },
     {
       label: 'UserName',
@@ -98,7 +99,7 @@ const Table: React.FunctionComponent<ITableProps> = ({ }) => {
         columns={tableColumns}
         keyId={'id'}
         size={"small"}
-        tableHeight={'calc(100vh - 180px)'}
+        tableHeight={'100%'}
         checkedBox
         doubleColor
         headFixed
