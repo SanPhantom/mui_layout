@@ -7,13 +7,6 @@ import { BrowserRouter as Router } from 'react-router-dom';
 
 ReactDOM.render(
   <React.StrictMode>
-    {/* <Router>
-      <Routes>
-        <Route path="/" element={<App />}>
-          <SanRouter />
-        </Route>
-      </Routes>
-    </Router> */}
     <Router>
       <SanRouter />
     </Router>

@@ -31,8 +31,8 @@ const menu: Array<MenuProp> = [
         path: '/calendar'
       },
       {
-        name: 'Second Page - No.2',
-        path: '/'
+        name: 'React Dnd',
+        path: '/reactDND'
       }
     ]
   },

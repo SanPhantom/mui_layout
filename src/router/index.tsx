@@ -39,6 +39,10 @@ const SanRouter: React.SFC<SanRouterProp> = props => {
         {
           path: 'calendar',
           element: <Data.Calendar />
+        },
+        {
+          path: 'ReactDND',
+          element: <Data.ReactDND />,
         }
       ]
     },
