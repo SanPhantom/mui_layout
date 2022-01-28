@@ -16,7 +16,7 @@ type TableProp = {
   google: string,
 }
 
-const Table: React.FunctionComponent<ITableProps> = ({ }) => {
+const Table: React.FunctionComponent<ITableProps> = () => {
 
   const [tableList, setTableList] = React.useState<TableProp[]>([])
 

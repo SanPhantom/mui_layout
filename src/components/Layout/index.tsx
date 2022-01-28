@@ -17,15 +17,16 @@ const Main = styled('div', { shouldForwardProp: (prop) => prop !== 'open' && pro
     duration: theme.transitions.duration.leavingScreen,
   }),
   width: '100%',
-  // marginLeft: {xs: 0, sm: `-${drawerWidth}px`},
-  // marginLeft: `-${drawerWidth}px`,
-  
+  height: '100%',
+  display: 'flex',
+  flexDirection: 'column',
   ...(open && {
     transition: theme.transitions.create('margin', {
       easing: theme.transitions.easing.easeOut,
       duration: theme.transitions.duration.enteringScreen,
     }),
     marginLeft: 0,
+    minWidth: 10
   }),
 }));
 
@@ -56,7 +57,7 @@ const Layout: React.SFC<LayoutProps> = props => {
   }
 
   return (
-    <Box sx={{ display: 'flex' }}>
+    <Box sx={{ display: 'flex', height: '100%' }}>
       <CssBaseline />
       <AppBar position="fixed" sx={{ zIndex: (theme) => theme.zIndex.drawer + 1 }}>
         <Toolbar>
@@ -91,7 +92,7 @@ const Layout: React.SFC<LayoutProps> = props => {
 
         </Toolbar>
       </AppBar>
-      <Drawer 
+      {/* <Drawer
         // variant="temporary"
         variant="persistent"
         anchor="left"
@@ -109,15 +110,15 @@ const Layout: React.SFC<LayoutProps> = props => {
         <Box sx={{ overflow: 'auto' }}>
           <LeftNav />
         </Box>
-      </Drawer>
-      <Drawer 
+      </Drawer> */}
+      <Drawer
         variant="temporary"
         anchor="left"
         open={open}
         onClose={() => setOpen(false)}
         sx={{
           width: drawerWidth,
-          display: { sm: 'block', lg: 'none' },
+          // display: { sm: 'block', lg: 'none' },
           // position: 'fixed',
           flexShrink: 0,
           [`& .MuiDrawer-paper`]: { width: drawerWidth, boxSizing: 'border-box' },
@@ -127,9 +128,9 @@ const Layout: React.SFC<LayoutProps> = props => {
           <LeftNav />
         </Box>
       </Drawer>
-      <Main open={open} sx={!open ? {marginLeft: {sm: 0, lg: `-${drawerWidth}px`}} : {}}>
+      <Main open={open}>
         <Toolbar />
-        <Box>
+        <Box sx={{ flex: 1, minHeight: 10 }}>
           {props.children}
         </Box>
 

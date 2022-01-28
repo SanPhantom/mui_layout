@@ -42,7 +42,11 @@ const SanRouter: React.SFC<SanRouterProp> = props => {
         },
         {
           path: 'ReactDND',
-          element: <Data.ReactDND />,
+          element: <Data.ReactDnd />,
+        },
+        {
+          path: 'canvas',
+          element: <Data.Canvas />
         }
       ]
     },

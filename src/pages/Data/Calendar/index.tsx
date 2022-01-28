@@ -1,20 +1,12 @@
-import { Box, Stack, Table, TableBody, TableCell, TableContainer, TableHead, TableRow, TextField, Button, Typography, Badge, Paper } from '@material-ui/core';
+import { Box, Stack, TextField, Button, Typography, Badge, Paper } from '@material-ui/core';
 import * as React from 'react';
-import moment, { MomentInput } from 'moment'
-import { styled } from '@material-ui/system';
-import { chunk } from 'lodash-es';
+import moment from 'moment';
 import OneCalendar from '../../../components/OneCalendar';
-import CanvasRender from '../../../components/CanvasRender';
 
 interface ICalandarProps {
 }
 
-const CalendarCell = styled(TableCell, {})({
-  height: 120,
-  borderBottom: 'none'
-})
-
-const Calandar: React.FunctionComponent<ICalandarProps> = ({ }) => {
+const Calandar: React.FunctionComponent<ICalandarProps> = () => {
 
   const [year, setYear] = React.useState<number>(moment().year());
   const [month, setMonth] = React.useState<number>(moment().month() + 1)
@@ -49,7 +41,6 @@ const Calandar: React.FunctionComponent<ICalandarProps> = ({ }) => {
         </Stack>
       )
     }
-    return <>{v.date()}</>;
   }
 
   return (
@@ -84,9 +75,9 @@ const Calandar: React.FunctionComponent<ICalandarProps> = ({ }) => {
 
       </Paper>
 
-      <Paper sx={{ p: 2, boxShadow: theme => theme.shadows[5] }}>
+      {/* <Paper sx={{ p: 2, boxShadow: theme => theme.shadows[5] }}>
         <CanvasRender></CanvasRender>
-      </Paper>
+      </Paper> */}
     </Stack>
 
   );

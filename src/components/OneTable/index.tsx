@@ -26,7 +26,7 @@ const OneTable = <T extends { [x: string]: any }>({
   size = 'medium',
   headFixed = false,
   tableHeight,
-  changeRows = () => { }
+  changeRows = (selectedRows = [], selectedKeys = []) => { }
 }: IOneTableProps<T>) => {
 
   const [selectedKeys, setSelectedKeys] = React.useState<Array<T[keyof T]>>([])
@@ -43,12 +43,18 @@ const OneTable = <T extends { [x: string]: any }>({
   }
 
   const handleCheck = (checked: boolean, data: T, key: T[keyof T]) => {
-    let clone_selectedKeys = cloneDeep(selectedKeys);
-    let clone_selectedRows = cloneDeep(selectedRows);
-    checked ?
-      setSelectedKeys([...clone_selectedKeys, key]) : setSelectedKeys(remove(clone_selectedKeys, n => n !== key));
-    checked ?
-      setSelectedRows([...clone_selectedRows, data]) : setSelectedRows(remove(clone_selectedRows, n => n[keyId] !== data[keyId]))
+    let clone_selectedKeys = checked ? [...cloneDeep(selectedKeys), key] : remove(cloneDeep(selectedKeys), n => n !== key) ;
+    let clone_selectedRows = checked ? [...cloneDeep(selectedRows), key] : remove(cloneDeep(selectedRows), n => n !== key) ;
+
+    setSelectedKeys(clone_selectedKeys);
+    setSelectedRows(clone_selectedRows);
+
+    // checked ?
+    //   setSelectedKeys([...clone_selectedKeys, key]) : setSelectedKeys(remove(clone_selectedKeys, n => n !== key));
+    // checked ?
+    //   setSelectedRows([...clone_selectedRows, data]) : setSelectedRows(remove(clone_selectedRows, n => n[keyId] !== data[keyId]))
+    
+    changeRows(clone_selectedRows, clone_selectedKeys);
   }
 
   const checkedAll = (checked: boolean) => {
@@ -64,13 +70,13 @@ const OneTable = <T extends { [x: string]: any }>({
     }
   }
 
-  React.useEffect(() => {
-    changeRows(selectedRows, selectedKeys);
-  }, [selectedKeys, selectedRows])
+  // React.useEffect(() => {
+    
+  // }, [selectedKeys, selectedRows])
 
   React.useEffect(() => {
-    console.log(map(columns, 'fixed').filter(x => includes(['left', 'right'], x)));
-    console.log(columns.filter(x => x.fixed))
+    // console.log(map(columns, 'fixed').filter(x => includes(['left', 'right'], x)));
+    // console.log(columns.filter(x => x.fixed))
   }, [columns])
 
   return (

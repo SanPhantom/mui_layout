@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import './App.css';
 import { Layout } from './components/index'
 import { createTheme, ThemeProvider } from '@material-ui/core/styles';
@@ -29,7 +29,14 @@ export interface AppProps {
 const App: React.SFC<AppProps> = (props) => {
 
   // const prefersDarkMode = useMediaQuery('(prefers-color-scheme: dark)');
-  const [skin, setSkin] = React.useState(false);
+  const [skin, setSkin] = React.useState<boolean>(() => {
+    if (!localStorage.getItem('skin')) {
+      localStorage.setItem('skin', 'light');
+      return false;
+    } else {
+      return localStorage.getItem('skin') !== 'light'
+    }
+  });
 
   const theme = React.useMemo(() =>
     createTheme({
@@ -47,10 +54,18 @@ const App: React.SFC<AppProps> = (props) => {
   
 
   const updateTheme = (v: boolean) => {
+    localStorage.setItem('skin', v ? 'dark' : 'light');
     setSkin(v);
   }
 
-  console.log(props)
+  useEffect(() => {
+    if (!localStorage.getItem('skin')) {
+      localStorage.setItem('skin', 'light');
+      setSkin(false)
+    } else {
+      setSkin(localStorage.getItem('skin') !== 'light')
+    }
+  }, [])
 
   return (
     <div className="App">

@@ -33,6 +33,10 @@ const menu: Array<MenuProp> = [
       {
         name: 'React Dnd',
         path: '/reactDND'
+      },
+      {
+        name: 'Canvas',
+        path: '/canvas'
       }
     ]
   },

@@ -68,7 +68,7 @@ const Calandar: React.FunctionComponent<ICalandarProps> = ({
     return moment(v).month() === dateRef.current.month();
   }
 
-  React.useEffect(() => {
+  React.useMemo(() => {
     initDates(date);
     dateRef.current = date;
   }, [date])
