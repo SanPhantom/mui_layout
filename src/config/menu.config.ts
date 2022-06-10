@@ -37,6 +37,14 @@ const menu: Array<MenuProp> = [
       {
         name: 'Canvas',
         path: '/canvas'
+      },
+      {
+        name: 'Input',
+        path: '/Input'
+      },
+      {
+        name: 'Test',
+        path: '/Test'
       }
     ]
   },

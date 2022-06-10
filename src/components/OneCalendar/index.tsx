@@ -1,11 +1,11 @@
 // import { Box, Stack, Table, TableBody, TableCell, TableContainer, TableHead, TableRow, TextField, Button, Typography } from '@material-ui/core';
-import * as React from 'react';
-import moment from 'moment'
+import { Box, styled, Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Typography } from '@mui/material';
 // import { styled } from '@material-ui/system';
 import { chunk, isUndefined } from 'lodash-es';
-import { TableCell, Box, TableContainer, Table, TableHead, TableRow, TableBody, Typography, styled } from '@mui/material';
+import moment from 'moment';
+import * as React from 'react';
 
-interface ICalandarProps {
+interface ICalendarProps {
   date: moment.Moment,
   type?: 'd' | 'dd' | 'ddd',
   renderCell?: (v: moment.Moment) => React.ReactElement
@@ -18,7 +18,7 @@ const CalendarCell = styled(TableCell, {})({
   padding: 3
 })
 
-const Calandar: React.FunctionComponent<ICalandarProps> = ({
+const Calendar: React.FunctionComponent<ICalendarProps> = ({
   date,
   type = 'dd',
   renderCell=(v)=>{return undefined},
@@ -111,4 +111,4 @@ const Calandar: React.FunctionComponent<ICalandarProps> = ({
   );
 };
 
-export default Calandar;
+export default Calendar;

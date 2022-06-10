@@ -1,8 +1,8 @@
+import { Box, Checkbox, Table, TableBody, TableCell, TableContainer, TableHead, TablePagination, TableRow, Theme, Typography } from '@mui/material';
+import { cloneDeep, map, remove } from "lodash-es";
 import * as React from 'react';
 import { IOneTableProps } from '../interface/intex';
 import OneTableRow from './OneTableRow';
-import { cloneDeep, includes, map, remove } from "lodash-es";
-import { TableContainer, Table, TableHead, TableRow, TableCell, Checkbox, Typography, TableBody, TablePagination, Box, Theme } from '@mui/material';
 
 const OneTable = <T extends { [x: string]: any }>({
   tableData,
@@ -88,7 +88,7 @@ const OneTable = <T extends { [x: string]: any }>({
         width: '100%'
       }}>
         <Table sx={{
-          // tableLayout: 'fixed'
+          tableLayout: 'fixed'
         }} size={size}>
           <TableHead>
             <TableRow sx={{
@@ -151,7 +151,7 @@ const OneTable = <T extends { [x: string]: any }>({
                   )}
                   {
                     columns.map((row, i) => (
-                      <TableCell key={`one_tbc_${index}_${i}`} align={row.align ?? 'left'}>
+                      <TableCell key={`one_tbc_${index}_${i}`} align={row.align ?? 'left'} title={data[row.props]}>
                         {
                           row.render ? row.render(data, index) : (
                             <Typography variant={"body2"}

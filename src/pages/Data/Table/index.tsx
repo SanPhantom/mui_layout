@@ -1,8 +1,8 @@
-import { Button, Typography } from '@mui/material';
-import { Stack } from '@mui/material';
+import { Button, Stack, Typography } from '@mui/material';
 import * as React from 'react';
 import { ITableColumnsProps } from '../../../components/interface/intex';
 import OneTable from '../../../components/OneTable';
+
 
 interface ITableProps {
 }
@@ -62,8 +62,9 @@ const Table: React.FunctionComponent<ITableProps> = () => {
       label: 'Action',
       props: 'id',
       render: (row, index) => (
-        <Button variant={"text"}>Edit</Button>
+        <Button variant={"contained"} color="primary">Action</Button>
       ),
+      fixed: 'right',
       width: '10%',
     }
   ]
@@ -72,7 +73,7 @@ const Table: React.FunctionComponent<ITableProps> = () => {
     // console.log('tableList: ', tableList)
     let timeout: NodeJS.Timeout | null = null;
     timeout = setTimeout(() => {
-      setTableList(new Array(20).fill(0).map((d, i) => ({
+      setTableList(new Array(25).fill(0).map((d, i) => ({
         id: i,
         username: 'PhantomGlaxtMin Line',
         age: '12 years old',
@@ -99,7 +100,7 @@ const Table: React.FunctionComponent<ITableProps> = () => {
         columns={tableColumns}
         keyId={'id'}
         size={"small"}
-        tableHeight={'100%'}
+        tableHeight={'450px'}
         checkedBox
         doubleColor
         headFixed

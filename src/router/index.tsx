@@ -3,10 +3,11 @@ import * as React from 'react';
 import {
   Navigate,
   useRoutes
-} from 'react-router-dom'
-import { About, Data, Home, Login } from '../pages'
+} from 'react-router-dom';
 import App from '../App';
-import utils from '../config/utils'
+import utils from '../config/utils';
+import { About, Data, Home, Login } from '../pages';
+import Test from './../pages/Test';
 
 interface SanRouterProp {
 
@@ -47,7 +48,9 @@ const SanRouter: React.SFC<SanRouterProp> = props => {
         {
           path: 'canvas',
           element: <Data.Canvas />
-        }
+        },
+        {path:"Test", element:<Test />},
+        {path: 'Input', element: <Data.Input />},
       ]
     },
     {

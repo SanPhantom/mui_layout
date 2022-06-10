@@ -16,3 +16,7 @@ code {
 .x6-widget-minimap {
   background-color: transparent;
 }
+
+* > div {
+  box-sizing: border-box;
+}
