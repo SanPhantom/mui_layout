@@ -3,10 +3,11 @@ import React, { useCallback, useEffect, useRef, useState } from 'react';
 import { getScreenFps } from './lyric.utils';
 import { LyricProps } from './lyricType';
 import sports from './sports';
+import './lyric.css';
 
 interface ILyricProps {
   lyricList: LyricProps[]; // 歌词列表
-  audioPlayer: HTMLAudioElement;
+  audioPlayer: HTMLAudioElement | null;
   duration?: number; // 滚动间隔时间
   renderItem: (item: LyricProps, index: number) => React.ReactNode; // 歌词渲染
 }
@@ -16,7 +17,7 @@ const Lyric = (props: ILyricProps) => {
   const {
     lyricList,
     audioPlayer,
-    duration = 120,
+    duration = 70,
     renderItem,
   } = props;
 
@@ -26,6 +27,7 @@ const Lyric = (props: ILyricProps) => {
   const scrollHeight = useRef<number>(0);
   const scrollRef = useRef<number>(0);
   const durationRef = useRef<number>(0);
+  const lineRef = useRef<number>(current);
   
 
   const lyricRef = useRef<HTMLDivElement | null>(null);
@@ -36,20 +38,21 @@ const Lyric = (props: ILyricProps) => {
   let animationStart: number = 0;
 
   // 获取当前歌词行数
-  const getLyricCurrentLine = useCallback(() => {
-    const { currentTime: ct, duration: dt } = audioPlayer;
+  const getLyricCurrentLine = () => {
+    const { currentTime: ct, duration: dt } = audioPlayer || { currentTime: 0, duration: 0};
     return new Promise<number>((resolve, reject) => {
       if (ct <= dt && dt !== 0 && lyricList.length > 0) {
         // const nodeEle = findLast(lyricList, lyric => Number(lyric.time) < ct * 1000);
         const index: number = findLastIndex(lyricList, lyric => Number(lyric.time) < ct * 1000);
+        
         resolve(index);
       }
-      resolve(0);
+      resolve(lineRef.current);
     })
-  }, [lyricList, audioPlayer])
+  }
 
   // 歌词滚动函数
-  const lyricScrollAnimation = (timestamp?: number) => {
+  const lyricScrollAnimation = () => {
     lockRef.current = true;
     animationStart++;
     const top = sports.linear(animationStart, scrollRef.current, scrollHeight.current, durationRef.current)
@@ -83,7 +86,7 @@ const Lyric = (props: ILyricProps) => {
         scrollHeight.current = sumTop - scrollRef.current;
       }
     }
-    if (!lockRef.current && !animation.current) {
+    if (!lockRef.current && animation.current === null ) {
       animation.current = window.requestAnimationFrame(lyricScrollAnimation);
     }
   }
@@ -91,8 +94,9 @@ const Lyric = (props: ILyricProps) => {
   // 歌曲播放当前时间变更事件
   const currentTimeUpdate = () => {
     getLyricCurrentLine().then((index: number) => {
-      setCurrent(index);
-      if (index !== current) {
+      if (index !== lineRef.current) {
+        setCurrent(index);
+        lineRef.current = index;
         getLyricScrollHeight(index);
       }
     })
@@ -114,8 +118,9 @@ const Lyric = (props: ILyricProps) => {
     }
     document.addEventListener(visibilityChangeEvent, handleVisibilityChange)
   }
+  
 
-  const delayBackCurrent = useCallback(() => {
+  const delayBackCurrent = () => {
     if (delayRef.current) {
       window.clearTimeout(delayRef.current);
       delayRef.current = null;
@@ -127,17 +132,17 @@ const Lyric = (props: ILyricProps) => {
         getLyricScrollHeight(index);
       })
     }, 3000)
-  }, [])
+  }
 
   const handleTouchMove = () => {
     lockRef.current = true;
   }
 
-
   useEffect(() => {
     if (audioPlayer) {
       audioPlayer.addEventListener('timeupdate', currentTimeUpdate);
       pageHiddenEvent();
+      currentTimeUpdate();
     }
     if (lyricRef.current) {
       lyricRef.current.addEventListener('mousewheel', () => {
@@ -157,15 +162,16 @@ const Lyric = (props: ILyricProps) => {
     return () => {
       clearScrollAnimation();
       scrollRef.current = 0;
-      setCurrent(0);
+      // setCurrent(0);
     }
 
-  }, [lyricList, audioPlayer])
+  }, [lyricList])
 
   useEffect(() => {
     // 获取屏幕刷新率
     if (getScreenFps) {
       getScreenFps().then((fps) => {
+        console.log("当前屏幕刷新率：", fps);
         durationRef.current = Math.ceil(fps * duration / 120);
       })
     }

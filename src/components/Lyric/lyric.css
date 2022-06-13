@@ -1,0 +1,33 @@
+.lyric-root {
+  width: 100%;
+  height: 100%;
+  overflow: auto;
+  text-align: center;
+  box-sizing: border-box;
+}
+
+.lyric-root::-webkit-scrollbar {
+  width: 0px;
+}
+
+.lyric-root::before, .lyric-root::after {
+  content: '';
+  display: block;
+  width: 100%;
+  height: 38%;
+}
+
+.lyric-root .lyric-item {
+  color: #999999;
+  user-select: none;
+  transition: color 200ms linear;
+  padding: 8px 0;
+}
+
+.lyric-root .lyric-item p {
+  margin: 0;
+}
+
+.lyric-root .lyric-item.active {
+  color: #ffffff;
+}

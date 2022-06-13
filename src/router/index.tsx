@@ -51,6 +51,10 @@ const SanRouter: React.SFC<SanRouterProp> = props => {
         },
         {path:"Test", element:<Test />},
         {path: 'Input', element: <Data.Input />},
+        {
+          path: 'lyric',
+          element: <Data.Lyric />,
+        },
       ]
     },
     {

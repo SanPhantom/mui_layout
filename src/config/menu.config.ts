@@ -43,6 +43,10 @@ const menu: Array<MenuProp> = [
         path: '/Input'
       },
       {
+        name: 'Lyric',
+        path: '/lyric'
+      },
+      {
         name: 'Test',
         path: '/Test'
       }
